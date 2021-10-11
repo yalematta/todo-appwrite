@@ -5,6 +5,7 @@
   <img style="width: 160px;" src="https://appwrite.io/images-ee/press/badge-pink-button.svg" alt="Built with Appwrite">
 </a>
 
-#
+#### This app is built with Appwrite, following its [Android SDK Documentation](https://appwrite.io/docs/getting-started-for-android). 
+
 
 
