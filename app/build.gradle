@@ -1,0 +1,81 @@
+/*
+ * Designed and developed by 2021 yalematta (Layale Matta)
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+apply from: "$rootDir/dependencies.gradle"
+
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
+android {
+    compileSdk versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.yalematta.todoappwrite"
+        minSdk versions.minSdk
+        targetSdk versions.compileSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", apikeyProperties['BASE_URL'])
+        buildConfigField("String", "PROJECT_ID", apikeyProperties['PROJECT_ID'])
+        buildConfigField("String", "SUCCESS_URL", apikeyProperties['SUCCESS_URL'])
+        buildConfigField("String", "FAILURE_URL", apikeyProperties['FAILURE_URL'])
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    // android supports
+    implementation "com.google.android.material:material:$versions.materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintVersion"
+
+    // kotlin
+    implementation "androidx.core:core-ktx:$versions.ktxVersion"
+
+    // architecture components
+    implementation "androidx.appcompat:appcompat:$versions.appCompatVersion"
+
+    // unit test
+    testImplementation "junit:junit:$versions.junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$versions.androidxTestJunit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"
+
+    // appwrite
+    implementation "io.appwrite:sdk-for-android:$versions.appwriteVersion"
+}

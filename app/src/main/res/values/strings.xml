@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Todo Appwrite</string>
+    <string name="subscribed">Subscribed to realtime! Try adding a document.</string>
+</resources>
