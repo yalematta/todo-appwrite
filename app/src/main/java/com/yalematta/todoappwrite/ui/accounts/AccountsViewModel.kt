@@ -49,7 +49,7 @@ class AccountsViewModel : ViewModel() {
     fun onLogin(email: Editable, password: Editable) {
         viewModelScope.launch {
             try {
-                var response = accountService.createSession(email.toString(), password.toString())
+                val response = accountService.createSession(email.toString(), password.toString())
                 var json = response.body?.string() ?: ""
                 json = JSONObject(json).toString(8)
                 _response.postValue(Event(json))
@@ -59,28 +59,10 @@ class AccountsViewModel : ViewModel() {
         }
     }
 
-    fun oAuthLogin(activity: ComponentActivity) {
-        viewModelScope.launch {
-            try {
-                accountService.createOAuth2Session(
-                    activity,
-                    "google",
-                    BuildConfig.SUCCESS_URL,
-                    BuildConfig.FAILURE_URL
-                )
-            } catch (e: Exception) {
-                _error.postValue(Event(e))
-            } catch (e: AppwriteException) {
-                _error.postValue(Event(e))
-            }
-        }
-    }
-
     fun onSignup(email: Editable, password: Editable, name: Editable) {
         viewModelScope.launch {
             try {
-                var response =
-                    accountService.create(email.toString(), password.toString(), name.toString())
+                val response = accountService.create(email.toString(), password.toString(), name.toString())
                 var json = response.body?.string() ?: ""
                 json = JSONObject(json).toString(2)
                 _response.postValue(Event(json))
@@ -88,13 +70,20 @@ class AccountsViewModel : ViewModel() {
                 _error.postValue(Event(e))
             }
         }
+    }
 
+    fun navigateToSignup() {
+        // go to signup page
+    }
+
+    fun navigateToLogin() {
+        // go to login page
     }
 
     fun onGetUser() {
         viewModelScope.launch {
             try {
-                var response = accountService.get()
+                val response = accountService.get()
                 var json = response.body?.string() ?: ""
                 json = JSONObject(json).toString(2)
                 _response.postValue(Event(json))
@@ -107,7 +96,7 @@ class AccountsViewModel : ViewModel() {
     fun onLogout() {
         viewModelScope.launch {
             try {
-                var response = accountService.deleteSession("current")
+                val response = accountService.deleteSession("current")
                 var json = response.body?.string()?.ifEmpty { "{}" }
                 json = JSONObject(json).toString(4)
                 _response.postValue(Event(json))

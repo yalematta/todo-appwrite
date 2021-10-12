@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Todo Appwrite</string>
     <string name="subscribed">Subscribed to realtime! Try adding a document.</string>
+    <string name="email">Email</string>
+    <string name="test_email">test@test.com</string>
+    <string name="test_password">Password</string>
+    <string name="name">Name</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+    <string name="get_user">Get User</string>
+    <string name="login_with_google">Login With Google</string>
+    <string name="logout">Logout</string>
+    <string name="signup_here">Not a member yet? Sign up here.</string>
+    <string name="login_here">Already a member? Login here.</string>
 </resources>

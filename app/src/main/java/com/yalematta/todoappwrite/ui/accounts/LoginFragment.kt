@@ -21,16 +21,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yalematta.todoappwrite.R
-import com.yalematta.todoappwrite.databinding.FragmentAccountBinding
+import com.yalematta.todoappwrite.databinding.FragmentLoginBinding
 
-class AccountsFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentAccountBinding
+    private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: AccountsViewModel
 
     override fun onCreateView(
@@ -41,7 +40,7 @@ class AccountsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AccountsViewModel::class.java)
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_account,
+            R.layout.fragment_login,
             container,
             false
         )
@@ -51,16 +50,8 @@ class AccountsFragment : Fragment() {
             viewModel.onLogin(binding.email.text, binding.password.text)
         }
 
-        binding.signup.setOnClickListener {
-            viewModel.onSignup(binding.email.text, binding.password.text, binding.name.text)
-        }
-
-        binding.getUser.setOnClickListener {
-            viewModel.onGetUser()
-        }
-
-        binding.logout.setOnClickListener {
-            viewModel.onLogout()
+        binding.signupHere.setOnClickListener {
+            viewModel.navigateToSignup()
         }
 
         viewModel.error.observe(viewLifecycleOwner, { event ->
@@ -71,7 +62,7 @@ class AccountsFragment : Fragment() {
 
         viewModel.response.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandled()?.let {
-                binding.responseTV.setText(it)
+                // do something with the response (it)
             }
         })
 

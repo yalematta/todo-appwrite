@@ -21,6 +21,8 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.yalematta.todoappwrite.R
 import com.yalematta.todoappwrite.ui.accounts.AccountsFragment
+import com.yalematta.todoappwrite.ui.accounts.LoginFragment
+import com.yalematta.todoappwrite.ui.accounts.SignupFragment
 import com.yalematta.todoappwrite.utils.Client
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<AccountsFragment>(R.id.fragment_container_view)
+                add<SignupFragment>(R.id.fragment_container_view)
             }
         }
     }

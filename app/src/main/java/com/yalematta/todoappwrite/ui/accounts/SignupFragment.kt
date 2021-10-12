@@ -27,10 +27,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yalematta.todoappwrite.R
 import com.yalematta.todoappwrite.databinding.FragmentAccountBinding
+import com.yalematta.todoappwrite.databinding.FragmentSignupBinding
 
-class AccountsFragment : Fragment() {
+class SignupFragment : Fragment() {
 
-    private lateinit var binding: FragmentAccountBinding
+    private lateinit var binding: FragmentSignupBinding
     private lateinit var viewModel: AccountsViewModel
 
     override fun onCreateView(
@@ -41,26 +42,18 @@ class AccountsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AccountsViewModel::class.java)
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_account,
+            R.layout.fragment_signup,
             container,
             false
         )
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.login.setOnClickListener {
-            viewModel.onLogin(binding.email.text, binding.password.text)
+        binding.loginHere.setOnClickListener {
+            viewModel.navigateToLogin()
         }
 
         binding.signup.setOnClickListener {
             viewModel.onSignup(binding.email.text, binding.password.text, binding.name.text)
-        }
-
-        binding.getUser.setOnClickListener {
-            viewModel.onGetUser()
-        }
-
-        binding.logout.setOnClickListener {
-            viewModel.onLogout()
         }
 
         viewModel.error.observe(viewLifecycleOwner, { event ->
@@ -71,7 +64,7 @@ class AccountsFragment : Fragment() {
 
         viewModel.response.observe(viewLifecycleOwner, { event ->
             event?.getContentIfNotHandled()?.let {
-                binding.responseTV.setText(it)
+                // do something with the response it
             }
         })
 
