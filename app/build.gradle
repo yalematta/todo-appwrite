@@ -16,6 +16,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
 
 apply from: "$rootDir/dependencies.gradle"
 
@@ -75,6 +76,10 @@ dependencies {
     testImplementation "junit:junit:$versions.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidxTestJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"
+
+    // room
+    implementation "androidx.room:room-runtime:$versions.roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$versions.roomVersion"
 
     // appwrite
     implementation "io.appwrite:sdk-for-android:$versions.appwriteVersion"
