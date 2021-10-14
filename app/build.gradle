@@ -81,6 +81,10 @@ dependencies {
     implementation "androidx.room:room-runtime:$versions.roomVersion"
     annotationProcessor "androidx.room:room-compiler:$versions.roomVersion"
 
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navVersion"
+
     // appwrite
     implementation "io.appwrite:sdk-for-android:$versions.appwriteVersion"
 }

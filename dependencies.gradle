@@ -65,6 +65,9 @@ ext.versions = [
         // room
         roomVersion        : '2.2.5',
 
+        // navigation
+        navVersion         : '2.3.5',
+
         // appwrite
         appwriteVersion    : '0.2.0'
 ]

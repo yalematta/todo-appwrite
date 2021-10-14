@@ -29,7 +29,7 @@ import com.yalematta.todoappwrite.R
 import com.yalematta.todoappwrite.databinding.FragmentAccountBinding
 import com.yalematta.todoappwrite.databinding.FragmentSignupBinding
 
-class SignupFragment : Fragment() {
+class SignupFragment : Fragment(R.layout.fragment_signup) {
 
     private lateinit var binding: FragmentSignupBinding
     private lateinit var viewModel: AccountsViewModel

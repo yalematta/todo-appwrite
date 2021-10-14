@@ -27,7 +27,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.yalematta.todoappwrite.R
 import com.yalematta.todoappwrite.databinding.FragmentLoginBinding
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: AccountsViewModel
