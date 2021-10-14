@@ -24,7 +24,9 @@ import com.yalematta.todoappwrite.ui.accounts.AccountsFragment
 import com.yalematta.todoappwrite.ui.accounts.LoginFragment
 import com.yalematta.todoappwrite.ui.accounts.SignupFragment
 import com.yalematta.todoappwrite.utils.Client
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

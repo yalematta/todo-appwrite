@@ -14,9 +14,12 @@
  *  limitations under the License.
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
 
 apply from: "$rootDir/dependencies.gradle"
 
@@ -84,6 +87,12 @@ dependencies {
     // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navVersion"
+
+    // dagger hilt
+    implementation "com.google.dagger:hilt-android:$versions.hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltAndroidXVersion"
+    kapt "androidx.hilt:hilt-compiler:$versions.hiltAndroidXVersion"
 
     // appwrite
     implementation "io.appwrite:sdk-for-android:$versions.appwriteVersion"
