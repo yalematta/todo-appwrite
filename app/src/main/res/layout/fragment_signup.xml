@@ -3,63 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ui.accounts.SignupFragment">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/constraint_layout"
+    <LinearLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="16dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
+            android:hint="@string/name"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/name"
-                android:inputType="text"
-                android:autofillHints=""/>
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
 
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:autofillHints=""/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
+            android:hint="@string/test_password"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/test_password"
-                android:inputType="textPassword"
-                android:autofillHints=""/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="32dp" />
+        <Button
+            android:id="@+id/signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/signup" />
 
-            <Button
-                android:id="@+id/signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/signup" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="32dp" />
+        <TextView
+            android:id="@+id/login_here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_here"
+            android:textAlignment="center" />
 
-            <TextView
-                android:id="@+id/login_here"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/login_here"
-                android:textAlignment="center"/>
-
-        </LinearLayout>
+    </LinearLayout>
 
 </layout>

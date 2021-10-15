@@ -19,6 +19,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 apply from: "$rootDir/dependencies.gradle"
@@ -43,6 +44,12 @@ android {
         buildConfigField("String", "PROJECT_ID", apikeyProperties['PROJECT_ID'])
         buildConfigField("String", "SUCCESS_URL", apikeyProperties['SUCCESS_URL'])
         buildConfigField("String", "FAILURE_URL", apikeyProperties['FAILURE_URL'])
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildFeatures {
@@ -82,17 +89,21 @@ dependencies {
 
     // room
     implementation "androidx.room:room-runtime:$versions.roomVersion"
-    annotationProcessor "androidx.room:room-compiler:$versions.roomVersion"
+    implementation "androidx.room:room-ktx:$versions.roomVersion"
+    kapt "androidx.room:room-compiler:$versions.roomVersion"
 
     // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navVersion"
 
     // dagger hilt
-    implementation "com.google.dagger:hilt-android:$versions.hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$versions.hiltVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltAndroidXVersion"
-    kapt "androidx.hilt:hilt-compiler:$versions.hiltAndroidXVersion"
+    implementation "com.google.dagger:hilt-android:$versions.hiltCoreVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.hiltCoreVersion"
+
+    // lifecycle + viewModel & liveData
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycleVersion"
+    implementation "android.arch.lifecycle:common-java8:$versions.lifecycleJavaVersion"
 
     // appwrite
     implementation "io.appwrite:sdk-for-android:$versions.appwriteVersion"

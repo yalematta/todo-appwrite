@@ -17,57 +17,50 @@
 package com.yalematta.todoappwrite.ui.accounts
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.yalematta.todoappwrite.R
-import com.yalematta.todoappwrite.databinding.FragmentAccountBinding
 import com.yalematta.todoappwrite.databinding.FragmentSignupBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignupFragment : Fragment(R.layout.fragment_signup) {
 
-    private lateinit var binding: FragmentSignupBinding
-    private lateinit var viewModel: AccountsViewModel
+    private val viewModel: AccountsViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        viewModel = ViewModelProvider(this).get(AccountsViewModel::class.java)
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_signup,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = FragmentSignupBinding.bind(view)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.loginHere.setOnClickListener {
-            viewModel.navigateToLogin()
+        binding.apply {
+
+            loginHere.setOnClickListener {
+                viewModel.navigateToLogin()
+            }
+
+            signup.setOnClickListener {
+                viewModel.onSignup(binding.email.text, binding.password.text, binding.name.text)
+            }
+
+            signup.setOnClickListener {
+                viewModel.onSignup(binding.email.text, binding.password.text, binding.name.text)
+            }
+
         }
 
-        binding.signup.setOnClickListener {
-            viewModel.onSignup(binding.email.text, binding.password.text, binding.name.text)
-        }
-
-        viewModel.error.observe(viewLifecycleOwner, { event ->
-            event?.getContentIfNotHandled()?.let { // Only proceed if the event has never been handled
-                Toast.makeText(requireContext(), it.message , Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModel.response.observe(viewLifecycleOwner, { event ->
-            event?.getContentIfNotHandled()?.let {
-                // do something with the response it
-            }
-        })
-
-        return binding.root
+//        viewModel.error.observe(viewLifecycleOwner, { event ->
+//            event?.getContentIfNotHandled()?.let { // Only proceed if the event has never been handled
+//                Toast.makeText(requireContext(), it.message , Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//
+//        viewModel.response.observe(viewLifecycleOwner, { event ->
+//            event?.getContentIfNotHandled()?.let {
+//                // do something with the response it
+//            }
+//        })
     }
 }

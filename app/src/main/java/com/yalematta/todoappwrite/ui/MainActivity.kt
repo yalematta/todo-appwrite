@@ -17,13 +17,7 @@ package com.yalematta.todoappwrite.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
 import com.yalematta.todoappwrite.R
-import com.yalematta.todoappwrite.ui.accounts.AccountsFragment
-import com.yalematta.todoappwrite.ui.accounts.LoginFragment
-import com.yalematta.todoappwrite.ui.accounts.SignupFragment
-import com.yalematta.todoappwrite.utils.Client
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,13 +25,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Client.create(applicationContext)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<SignupFragment>(R.id.fragment_container_view)
-            }
-        }
     }
 }

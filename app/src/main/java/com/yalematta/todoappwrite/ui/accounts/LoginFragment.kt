@@ -17,55 +17,47 @@
 package com.yalematta.todoappwrite.ui.accounts
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.yalematta.todoappwrite.R
 import com.yalematta.todoappwrite.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private lateinit var binding: FragmentLoginBinding
-    private lateinit var viewModel: AccountsViewModel
+    private val viewModel: AccountsViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        viewModel = ViewModelProvider(this).get(AccountsViewModel::class.java)
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_login,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = FragmentLoginBinding.bind(view)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.login.setOnClickListener {
-            viewModel.onLogin(binding.email.text, binding.password.text)
+        binding.apply {
+
+            login.setOnClickListener {
+                viewModel.onLogin(binding.email.text, binding.password.text)
+            }
+
+            signupHere.setOnClickListener {
+                viewModel.navigateToSignup()
+            }
         }
 
-        binding.signupHere.setOnClickListener {
-            viewModel.navigateToSignup()
-        }
-
-        viewModel.error.observe(viewLifecycleOwner, { event ->
-            event?.getContentIfNotHandled()?.let { // Only proceed if the event has never been handled
-                Toast.makeText(requireContext(), it.message , Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModel.response.observe(viewLifecycleOwner, { event ->
-            event?.getContentIfNotHandled()?.let {
-                // do something with the response (it)
-            }
-        })
-
-        return binding.root
+//        viewModel.error.observe(viewLifecycleOwner, { event ->
+//            event?.getContentIfNotHandled()
+//                ?.let { // Only proceed if the event has never been handled
+//                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+//                }
+//        })
+//
+//        viewModel.response.observe(viewLifecycleOwner, { event ->
+//            event?.getContentIfNotHandled()?.let {
+//                // do something with the response (it)
+//            }
+//        })
     }
 }
