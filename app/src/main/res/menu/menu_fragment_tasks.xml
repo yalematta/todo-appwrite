@@ -12,7 +12,7 @@
     <item
         android:title="@string/sort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        app:showAsAction="ifRoom">
+        app:showAsAction="always">
 
         <menu>
 
