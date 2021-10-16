@@ -105,6 +105,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycleVersion"
     implementation "android.arch.lifecycle:common-java8:$versions.lifecycleJavaVersion"
 
+    // datastore
+    implementation "androidx.datastore:datastore-preferences:$versions.dataStoreVersion"
+
     // appwrite
     implementation "io.appwrite:sdk-for-android:$versions.appwriteVersion"
 }

@@ -73,6 +73,9 @@ ext.versions = [
         lifecycleVersion    : '2.3.1',
         lifecycleJavaVersion: '1.1.1',
 
+        // datastore
+        dataStoreVersion    : '1.0.0-alpha02',
+
         // appwrite
         appwriteVersion     : '0.2.0'
 ]

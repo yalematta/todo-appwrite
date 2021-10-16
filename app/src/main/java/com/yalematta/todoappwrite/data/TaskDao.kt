@@ -1,7 +1,6 @@
 package com.yalematta.todoappwrite.data
 
 import androidx.room.*
-import com.yalematta.todoappwrite.ui.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao
