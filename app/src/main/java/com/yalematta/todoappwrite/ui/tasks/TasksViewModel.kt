@@ -8,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.yalematta.todoappwrite.data.PreferencesManager
 import com.yalematta.todoappwrite.data.SortOrder
 import com.yalematta.todoappwrite.data.Task
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +26,8 @@ class TasksViewModel @Inject constructor(
 
     val preferencesFlow = preferencesManager.preferencesFlow
 
-    val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
-    val hideCompleted = MutableStateFlow(false)
+    private val tasksEventChannel = Channel<TasksEvent>()
+    val tasksEvent = tasksEventChannel.receiveAsFlow()
 
     private val tasksFlow = combine(
         searchQuery,
@@ -60,5 +62,15 @@ class TasksViewModel @Inject constructor(
     fun onTaskSwiped(task: Task) =
         viewModelScope.launch {
             taskDao.delete(task)
+            tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
         }
+
+    fun onUndoDeleteClick(task: Task) =
+        viewModelScope.launch {
+            taskDao.insert(task)
+        }
+
+    sealed class TasksEvent {
+        data class ShowUndoDeleteTaskMessage(val task: Task) : TasksEvent()
+    }
 }
