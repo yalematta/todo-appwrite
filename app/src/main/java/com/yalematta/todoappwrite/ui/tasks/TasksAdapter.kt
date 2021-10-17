@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yalematta.todoappwrite.data.Task
 import com.yalematta.todoappwrite.databinding.ItemTaskBinding
 
-class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallback()) {
+class TasksAdapter(private val listener: OnItemClickListener) :
+    ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,20 +22,39 @@ class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallbac
         holder.bind(currentItem)
     }
 
-    class TasksViewHolder(private val binding: ItemTaskBinding)
-        : RecyclerView.ViewHolder(binding.root){
+    inner class TasksViewHolder(private val binding: ItemTaskBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(task: Task) {
-                binding.apply {
-                    checkBoxCompleted.isChecked = task.completed
-                    textViewName.text = task.name
-                    textViewName.paint.isStrikeThruText = task.completed
-                    labelPriority.isVisible = task.important
+        init {
+            binding.apply {
+                root.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listener.onItemClick(task)
+                    }
+                }
+                checkBoxCompleted.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listener.onCheckboxClick(task, checkBoxCompleted.isChecked)
+                    }
                 }
             }
+        }
+
+        fun bind(task: Task) {
+            binding.apply {
+                checkBoxCompleted.isChecked = task.completed
+                textViewName.text = task.name
+                textViewName.paint.isStrikeThruText = task.completed
+                labelPriority.isVisible = task.important
+            }
+        }
     }
 
-    class DiffCallback: DiffUtil.ItemCallback<Task>() {
+    class DiffCallback : DiffUtil.ItemCallback<Task>() {
         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem.id == newItem.id
         }
@@ -43,5 +63,10 @@ class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallbac
             return oldItem == newItem
         }
 
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(task: Task)
+        fun onCheckboxClick(task: Task, isChecked: Boolean)
     }
 }

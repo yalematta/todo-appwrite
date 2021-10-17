@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yalematta.todoappwrite.R
 import com.yalematta.todoappwrite.data.SortOrder
+import com.yalematta.todoappwrite.data.Task
 import com.yalematta.todoappwrite.databinding.FragmentTasksBinding
 import com.yalematta.todoappwrite.utils.onQueryTextChanged
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,14 +21,14 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TasksFragment : Fragment(R.layout.fragment_tasks) {
+class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClickListener {
 
     private val viewModel: TasksViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tasksAdapter = TasksAdapter()
+        val tasksAdapter = TasksAdapter(this)
 
         val binding = FragmentTasksBinding.bind(view)
         binding.apply {
@@ -82,5 +83,13 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onItemClick(task: Task) {
+        viewModel.onTaskSelected(task)
+    }
+
+    override fun onCheckboxClick(task: Task, isChecked: Boolean) {
+        viewModel.onTaskCheckedChanged(task, isChecked)
     }
 }
