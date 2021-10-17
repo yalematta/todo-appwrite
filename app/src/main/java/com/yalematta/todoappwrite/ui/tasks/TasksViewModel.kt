@@ -56,4 +56,9 @@ class TasksViewModel @Inject constructor(
         viewModelScope.launch {
             taskDao.update(task.copy(completed = isChecked))
         }
+
+    fun onTaskSwiped(task: Task) =
+        viewModelScope.launch {
+            taskDao.delete(task)
+        }
 }
